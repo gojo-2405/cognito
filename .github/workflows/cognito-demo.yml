@@ -13,7 +13,7 @@ env:
   AWS_REGION: us-east-1
   AWS_ACCOUNT_ID: "618246140803"
 
-  ECR_REPOSITORY: cognito-demo
+  ECR_REPOSITORY: cognito
 
   ECS_CLUSTER: "cognito"
   ECS_SERVICE: "cognito-service"
