@@ -1,0 +1,35 @@
+{
+  "name": "cognito-demo",
+  "version": "1.0.0",
+  "description": "AWS Cognito Hosted UI Authentication Demo",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "aws",
+    "cognito",
+    "oidc",
+    "authentication",
+    "ecs",
+    "express"
+  ],
+  "author": "Karthick",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "helmet": "^8.0.0",
+    "morgan": "^1.10.0",
+    "openid-client": "^5.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
