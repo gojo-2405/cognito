@@ -1,0 +1,84 @@
+name: Deploy Cognito Demo to ECS
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to deploy"
+        required: true
+        default: "main"
+        type: string
+
+env:
+  AWS_REGION: us-east-1
+  AWS_ACCOUNT_ID: "618246140803"
+
+  ECR_REPOSITORY: cognito-demo
+
+  ECS_CLUSTER: "cognito"
+  ECS_SERVICE: "cognito-service"
+
+  ECS_TASK_DEFINITION: task-definition.json
+
+  CONTAINER_NAME: cognito
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Configure AWS Credentials using OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build Docker Image
+        id: build-image
+        run: |
+
+          IMAGE_URI=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${{ github.sha }}
+
+          docker build -t $IMAGE_URI .
+
+          docker push $IMAGE_URI
+
+          echo "image=$IMAGE_URI" >> $GITHUB_OUTPUT
+
+      - name: Render ECS Task Definition
+        id: task-def
+
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+
+        with:
+          task-definition: ${{ env.ECS_TASK_DEFINITION }}
+          container-name: ${{ env.CONTAINER_NAME }}
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Deploy to Amazon ECS
+
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          service: ${{ env.ECS_SERVICE }}
+          wait-for-service-stability: true
+
+      - name: Deployment Complete
+        run: |
+          echo "Deployment completed successfully."
