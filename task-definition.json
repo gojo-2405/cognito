@@ -1,0 +1,31 @@
+{
+  "family": "cognito",
+  "taskRoleArn": "arn:aws:iam::618246140803:role/SSMPermissionTask",
+  "executionRoleArn": "arn:aws:iam::618246140803:role/ecsTaskExecutionRole",
+  "networkMode": "bridge",
+  "containerDefinitions": [
+    {
+      "name": "cognito",
+      "image": "618246140803.dkr.ecr.us-east-1.amazonaws.com/cognito",
+      "essential": true,
+      "cpu": 300,
+      "memory": 300,
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 0,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/cognito",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "cognito"
+        }
+      }
+    }
+  ]
+}
