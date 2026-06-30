@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Cognito Authentication Demo</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        body{
+            margin:0;
+            padding:0;
+            font-family:Arial, Helvetica, sans-serif;
+            background:#f4f6f9;
+        }
+
+        .container{
+            width:100%;
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .card{
+            background:white;
+            width:500px;
+            padding:40px;
+            border-radius:10px;
+            text-align:center;
+            box-shadow:0 5px 15px rgba(0,0,0,.15);
+        }
+
+        h1{
+            color:#232F3E;
+            margin-bottom:10px;
+        }
+
+        p{
+            color:#666;
+            margin-bottom:25px;
+        }
+
+        .btn{
+            display:inline-block;
+            text-decoration:none;
+            color:white;
+            background:#FF9900;
+            padding:12px 30px;
+            margin:10px;
+            border-radius:6px;
+            font-weight:bold;
+            transition:.3s;
+        }
+
+        .btn:hover{
+            background:#e88a00;
+        }
+
+        .btn-secondary{
+            background:#232F3E;
+        }
+
+        .btn-secondary:hover{
+            background:#111;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:25px;
+        }
+
+        table td{
+            border:1px solid #ddd;
+            padding:10px;
+            text-align:left;
+        }
+
+        .footer{
+            margin-top:30px;
+            color:#999;
+            font-size:14px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h1>🔐 AWS Cognito Demo</h1>
+
+<p>
+This application demonstrates authentication using
+Amazon Cognito Hosted UI with OpenID Connect.
+</p>
+
+<% if(!user){ %>
+
+<a href="/login" class="btn">
+Login
+</a>
+
+<a href="/signup" class="btn btn-secondary">
+Sign Up
+</a>
+
+<% } else { %>
+
+<h2>Welcome</h2>
+
+<table>
+
+<tr>
+<td><strong>Email</strong></td>
+<td><%= user.email %></td>
+</tr>
+
+<tr>
+<td><strong>Name</strong></td>
+<td><%= user.name || user.email %></td>
+</tr>
+
+<tr>
+<td><strong>Email Verified</strong></td>
+<td><%= user.email_verified %></td>
+</tr>
+
+</table>
+
+<br>
+
+<a href="/dashboard" class="btn">
+Go To Dashboard
+</a>
+
+<a href="/logout" class="btn btn-secondary">
+Logout
+</a>
+
+<% } %>
+
+<div class="footer">
+Powered by Amazon Cognito
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
