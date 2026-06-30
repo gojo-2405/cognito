@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const { Issuer, generators } = require("openid-client");
 
 const app = express();
+app.set("trust proxy", 1);
 const PORT = process.env.PORT || 3000;
 
 app.set("view engine", "ejs");
