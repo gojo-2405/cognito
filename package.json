@@ -1,35 +1,39 @@
 {
-  "name": "cognito-demo",
+  "name": "inspector-demo-app",
   "version": "1.0.0",
-  "description": "AWS Cognito Hosted UI Authentication Demo",
+  "description": "Sample Node.js application for dependency scanning demos",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "test": "echo \"No tests configured\""
   },
   "keywords": [
     "aws",
-    "cognito",
-    "oidc",
-    "authentication",
-    "ecs",
+    "amazon-inspector",
+    "nodejs",
     "express"
   ],
-  "author": "Karthick",
+  "author": "Demo",
   "license": "MIT",
-  "dependencies": {
-    "dotenv": "^16.4.7",
-    "ejs": "^3.1.10",
-    "express": "^4.21.2",
-    "express-session": "^1.18.1",
-    "helmet": "^8.0.0",
-    "morgan": "^1.10.0",
-    "openid-client": "^5.7.1"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.9"
-  },
   "engines": {
     "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "dotenv": "^17.0.0",
+    "morgan": "^1.10.0",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^9.0.2",
+    "bcrypt": "^6.0.0",
+    "axios": "^1.10.0",
+    "cookie-parser": "^1.4.7",
+    "express-session": "^1.18.2",
+    "ejs": "^3.1.10"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "eslint": "^9.30.0"
   }
 }
